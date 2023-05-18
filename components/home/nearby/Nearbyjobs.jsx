@@ -8,9 +8,9 @@ import useFetch from "../../../hook/useFetch";
 
 const Nearbyjobs = () => {
 	const router = useRouter();
-	const { data, isLoading, error } = useFetch("search", {
-		query: "React developer",
-		num_pages: 1,
+	const { data, isLoading, error } = useFetch("Search", {
+		SearchQuery: "java",
+		PageNumber: "1",
 	});
 
 	return (
@@ -27,11 +27,13 @@ const Nearbyjobs = () => {
 				) : error ? (
 					<Text>Something went wrong</Text>
 				) : (
-					data?.map((job) => (
+					data?.data?.map((job) => (
 						<NearbyJobCard
 							job={job}
-							key={`nearby-job-${job?.job_id}`}
-							handleNavigate={() => router.push(`job-details/${job.job_id}`)}
+							key={`nearby-job-${job?.id}`}
+							handleNavigate={() => {
+								router.push(`job-details/${job.slug}`);
+							}}
 						/>
 					))
 				)}

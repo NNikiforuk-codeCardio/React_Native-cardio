@@ -1,18 +1,18 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const useFetch = (endpoint, query) => {
-	const [data, setData] = useState([]);
+const useFetch = (endpoint, params) => {
+	const [data, setData] = useState(undefined);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(null);
 
 	const options = {
 		method: "GET",
-		url: `https://jsearch.p.rapidapi.com/${endpoint}`,
-		params: { ...query },
+		url: `https://jobsearch4.p.rapidapi.com/api/v1/Jobs/${endpoint}`,
+		params: { ...params },
 		headers: {
 			"X-RapidAPI-Key": "1208df8556msh38c37d80315f887p1e5b54jsn41a6284627a7",
-			"X-RapidAPI-Host": "jsearch.p.rapidapi.com",
+			"X-RapidAPI-Host": "jobsearch4.p.rapidapi.com",
 		},
 	};
 	const fetchData = async () => {
@@ -20,9 +20,11 @@ const useFetch = (endpoint, query) => {
 
 		try {
 			const response = await axios.request(options);
-			setData(response.data.data);
+			console.log(response.data);
+			setData(response.data);
 			setIsLoading(false);
 		} catch (error) {
+			console.error(error);
 			setError(error);
 			alert("There is an error");
 		} finally {
@@ -42,5 +44,4 @@ const useFetch = (endpoint, query) => {
 	return { data, isLoading, error, refetch };
 };
 
-
-export default useFetch
+export default useFetch;

@@ -15,16 +15,16 @@ import useFetch from "../../../hook/useFetch";
 
 const Popularjobs = () => {
 	const router = useRouter();
-	const { data, isLoading, error } = useFetch("search", {
-		query: "React developer",
-		num_pages: 1,
+	const { data, isLoading, error } = useFetch("Search", {
+		SearchQuery: "java",
+		PageNumber: "1",
 	});
 
 	const [selectedJob, setSelectedJob] = useState();
 
 	const handleCardPress = (item) => {
-		router.push(`/job-details/${item.job_id}`);
-		setSelectedJob(item.job_id);
+		router.push(`/job-details/${item.slug}`);
+		setSelectedJob(item.id);
 	};
 
 	return (
@@ -42,7 +42,7 @@ const Popularjobs = () => {
 					<Text>Something went wrong</Text>
 				) : (
 					<FlatList
-						data={data}
+						data={data?.data}
 						renderItem={({ item }) => (
 							<PopularJobCard
 								item={item}
@@ -50,7 +50,7 @@ const Popularjobs = () => {
 								handleCardPress={handleCardPress}
 							/>
 						)}
-						keyExtractor={(item) => item?.job_id}
+						keyExtractor={(item) => item?.id}
 						contentContainerStyle={{ columnGap: SIZES.medium }}
 						horizontal
 					/>
