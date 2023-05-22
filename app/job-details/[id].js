@@ -20,27 +20,18 @@ import {
 import { COLORS, SIZES, icons, images } from "../../constants";
 import useFetch from "../../hook/useFetch";
 
-const tabs = ["About", "Qualifications", "Responsibilities"];
-
 const JobDetails = () => {
 	const params = useSearchParams();
-	console.log(params);
 	const router = useRouter();
 	const [refreshing, setRefreshing] = useState(false);
 	const { data, isLoading, error, refetch } = useFetch(params.id, {});
-	const [activeTab, setActiveTab] = useState(tabs[0]);
 
-	const onRefresh = () => {};
+	const onRefresh = () => { };
 
 	const displayTabContent = () => {
-		switch (activeTab) {
-			case "Qualifications":
-				return <Specifics title="Qualifications" points={data[0]} />
-			case "About":
-			case "Responsibilities":
-			default:
-				break;
-		}
+
+
+
 	};
 
 	return (
@@ -83,11 +74,6 @@ const JobDetails = () => {
 								jobTitle={data.title}
 								companyName={data.company}
 								location={data.location}
-							/>
-							<JobTabs
-								tabs={tabs}
-								activeTab={activeTab}
-								setActiveTab={setActiveTab}
 							/>
 							{displayTabContent()}
 						</View>
