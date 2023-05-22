@@ -13,9 +13,9 @@ import {
 	Company,
 	Job,
 	JobFooter,
-	JobTabs,
 	ScreenHeaderBtn,
 	Specifics,
+	JobAbout
 } from "../../components";
 import { COLORS, SIZES, icons, images } from "../../constants";
 import useFetch from "../../hook/useFetch";
@@ -29,7 +29,9 @@ const JobDetails = () => {
 	const onRefresh = () => { };
 
 	const displayTabContent = () => {
-
+		return <JobAbout
+			info={data.originalPosting ?? "No data provided"}
+		/>
 
 
 	};
